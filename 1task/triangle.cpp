@@ -9,9 +9,9 @@ Triangle::Triangle(double side_length, double left_angle, double right_angle) {
 void Triangle::calculateSides() {
 	double b_side = a_side * sin(left_ang->getRad()) / sin(left_ang->getRad() + right_ang->getRad());
 	double c_side = a_side * sin(right_ang->getRad()) / sin(left_ang->getRad() + right_ang->getRad());
-	std::cout << "A side length: " << this->a_side << "\n";
-	std::cout << "B side length: " << b_side << "\n";
-	std::cout << "C side length: " << c_side << "\n";
+	std::cout << "Длина стороны А: " << this->a_side << "\n";
+	std::cout << "Длина стороны B: " << b_side << "\n";
+	std::cout << "Длина стороны C: " << c_side << "\n";
 }
 void Triangle::calculateBisectors() {
 	double b_side = a_side * sin(left_ang->getRad() + right_ang->getRad()) / sin(right_ang->getRad());
@@ -21,9 +21,9 @@ void Triangle::calculateBisectors() {
 	double second_bisector = sqrt(b_side * c_side * (b_side + c_side - this->a_side) * (b_side + c_side + this->a_side)) / (b_side + c_side);
 	double third_bisector = sqrt(this->a_side * c_side * (this->a_side + c_side - b_side) * (this->a_side + c_side + b_side)) / (this->a_side + c_side);
 
-	std::cout << "First bisector length: " << first_bisector << "\n";
-	std::cout << "Second bisector length: " << second_bisector << "\n";
-	std::cout << "Third bisector length: " << third_bisector << "\n";
+	std::cout << "Длина первой биссектрисы: " << first_bisector << "\n";
+	std::cout << "Длина второй биссектрисы: " << second_bisector << "\n";
+	std::cout << "Длина третьей биссектрисы: " << third_bisector << "\n";
 }
 
 double Triangle::getSquare() const {
@@ -35,4 +35,12 @@ double Triangle::getSquare() const {
 }
 bool Triangle::operator== (const Triangle& B) {
 	return (this->getSquare() == B.getSquare());
+}
+std::ostream& Triangle::operator<< (std::ostream& os) {
+	double b_side = a_side * sin(left_ang->getRad() + right_ang->getRad()) / sin(right_ang->getRad());
+	double c_side = a_side * sin(left_ang->getRad() + right_ang->getRad()) / sin(left_ang->getRad());
+	os << "A: " << a_side << "\n";
+	os << "B: " << b_side << "\n";
+	os << "C: " << c_side << "\n";
+	return os;
 }

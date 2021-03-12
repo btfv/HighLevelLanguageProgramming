@@ -17,4 +17,5 @@ public:
 	double getSquare() const;
 
 	bool operator== (const Triangle&);
+	std::ostream& operator<< (std::ostream&);
 };

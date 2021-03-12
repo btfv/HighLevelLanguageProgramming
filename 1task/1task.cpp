@@ -14,7 +14,7 @@ int main()
 {
     setlocale(LC_CTYPE, "Russian");
     menu();
-    return -1;
+    return 1;
 }
 
 void sideMenu(double& side) {
@@ -114,12 +114,16 @@ void actionMenu(Triangle* triangle1, Triangle* triangle2) {
         case 1: triangle1->calculateSides(); _getch(); break;
         case 2: triangle1->calculateBisectors(); _getch(); break;
         case 3: compare(triangle1, triangle2); _getch(); break;
+        case 4: std::cout << "Первый треугольник:\n"; *triangle1 << std::cout;
+            std::cout << "Второй треугольник:\n"; *triangle2 << std::cout;
+                _getch(); break;
         }
         system("CLS");
         std::cout << "Введите данные и нажмите Enter:\n";
         std::cout << "1. Вычислить длины сторон (у первого треугольника)\n";
         std::cout << "2. Вычислить длины биссектрис (у первого треугольника)\n";
         std::cout << "3. Сравнить стороны треугольников\n";
+        std::cout << "4. Вывести стороны треугольников\n";
         std::cout << "0. Выйти\n";
         std::cin >> x;
     }
