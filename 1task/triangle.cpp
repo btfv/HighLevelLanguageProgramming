@@ -34,6 +34,5 @@ double Triangle::getSquare() const {
 	return sqrt(p * (p - a_side) * (p - b_side) * (p - c_side));
 }
 bool Triangle::operator== (const Triangle& B) {
-	std::cout << "DDQWEQWWEQW";
 	return (this->getSquare() == B.getSquare());
 }

@@ -6,19 +6,11 @@ class Angle {
 private:
 	double degrees;
 public:
-	Angle(double degrees) {
-		this->degrees = degrees;
-	}
+	Angle(double);
 	// return angle in degrees
-	double getDeg() {
-		return this->degrees;
-	}
+	double getDeg();
 	// set angle in degrees
-	void setDeg(double degrees) {
-		this->degrees = degrees;
-	}
+	void setDeg(double);
 	// return angle in radians
-	double getRad() {
-		return this->degrees * M_PI / 180;
-	}
+	double getRad();
 };
