@@ -36,11 +36,11 @@ Triangle* enterData() {
     int x = 0;
     double side = -1, left_angle = -1, right_angle = -1;
 
-    while (x != -1) {
+    while (x != 48) {
         switch (x) {
-        case 1: sideMenu(side); break;
-        case 2: angleMenu(left_angle); break;
-        case 3: angleMenu(right_angle); break;
+        case 49: sideMenu(side); break;
+        case 50: angleMenu(left_angle); break;
+        case 51: angleMenu(right_angle); break;
         }
         if (side != -1 && left_angle != -1 && right_angle != -1) {
             return new Triangle(side, left_angle, right_angle);
@@ -65,7 +65,7 @@ Triangle* enterData() {
         else {
             std::cout << "3. Второй угол: " << "\n";
         }
-        std::cin >> x;
+        x = _getch();
     }
     return enterData();
 }
@@ -73,13 +73,13 @@ Triangle* enterData() {
 void menu() {
     Triangle *triangle1 = NULL, *triangle2 = NULL;
     int x = 0;
-    while (x != -1) {
+    while (x != 48) {
         switch (x)
         {
-        case 1:
+        case 49:
             triangle1 = enterData();
             break;
-        case 2:
+        case 50:
             triangle2 = enterData();
             break;
         }
@@ -101,20 +101,21 @@ void menu() {
             std::cout << "Второй треугольник не введен!\n";
         }
         std::cout << "Введите номер треугольника для ввода данных (1 или 2):\n";
-        std::cin >> x;
+        x = _getch();
     }
+    system("CLS");
 }
 
 void actionMenu(Triangle* triangle1, Triangle* triangle2) {
     int x = -1;
 
-    while (x != 0) {
+    while (x != 48) {
         system("CLS");
         switch (x) {
-        case 1: triangle1->calculateSides(); _getch(); break;
-        case 2: triangle1->calculateBisectors(); _getch(); break;
-        case 3: compare(triangle1, triangle2); _getch(); break;
-        case 4: std::cout << "Первый треугольник:\n"; *triangle1 << std::cout;
+        case 49: triangle1->calculateSides(); _getch(); break;
+        case 50: triangle1->calculateBisectors(); _getch(); break;
+        case 51: compare(triangle1, triangle2); _getch(); break;
+        case 52: std::cout << "Первый треугольник:\n"; *triangle1 << std::cout;
             std::cout << "Второй треугольник:\n"; *triangle2 << std::cout;
                 _getch(); break;
         }
@@ -125,8 +126,9 @@ void actionMenu(Triangle* triangle1, Triangle* triangle2) {
         std::cout << "3. Сравнить стороны треугольников\n";
         std::cout << "4. Вывести стороны треугольников\n";
         std::cout << "0. Выйти\n";
-        std::cin >> x;
+        x = _getch();
     }
+    system("CLS");
     return;
 }
 
