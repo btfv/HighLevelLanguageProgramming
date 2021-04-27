@@ -4,7 +4,7 @@
 #include <assert.h>
 #include "string.h"
 
-string::string() : str{ nullptr } {
+string::string() {
 	this->str = new char[1];
 	this->str[0] = '\0';
 };
@@ -22,6 +22,7 @@ string::string(char* val) {
 
 string::string(const string& source)
 {
+	delete[] this->str;
 	this->str = new char[sizeof source.str];
 	strcpy(this->str, source.str);
 }
@@ -40,9 +41,12 @@ char string::operator[](int index) {
 	return this->str[index];
 }
 
-std::ostream& operator<< (std::ostream& stream, const string& string) {
-	stream << string.str;
-	return stream;
+std::ostream& operator<< (std::ostream& stream, string& string) {
+	return string.out(stream);
+}
+
+std::istream& operator>> (std::istream& stream, string& string) {
+	return string.in(stream);
 }
 
 int string::get_length() {

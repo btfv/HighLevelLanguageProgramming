@@ -1,12 +1,12 @@
 #define _CRT_SECURE_NO_WARNINGS
-
+#include "string.h"
 #include "id_string.h"
 
 id_string::id_string(const char* val) {
 	if (!check_string(val)) {
-		string::string();
 		return;
 	}
+	delete[] str;
 	str = new char[sizeof val];
 	strcpy(str, val);
 }
