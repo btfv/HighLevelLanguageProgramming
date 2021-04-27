@@ -340,3 +340,6 @@ ASALocalRun/
 healthchecksdb
 
 temp/
+*.zip
+*.7z
+*.rar
