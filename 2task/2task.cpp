@@ -10,7 +10,6 @@ void test(string**&, const int&);
 int main()
 {
     setlocale(LC_CTYPE, "Russian");
-
     int num = 0;
     string** arr = nullptr;
     int arr_size = 0;

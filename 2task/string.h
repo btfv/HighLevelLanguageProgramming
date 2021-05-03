@@ -21,10 +21,11 @@ public:
 	int get_length();
 	virtual string& operator=(char*);
 	char operator[](int);
-	friend std::ostream& operator<< (std::ostream&, string&);
-	friend std::istream& operator>> (std::istream&, string&);
+	friend std::ostream& operator<< (std::ostream&, string);
+	friend std::istream& operator>> (std::istream&, string);
 	void resize_string(const int new_size) {
 		delete[] this->str;
 		this->str = new char[new_size];
 	}
+	static void reverse_string(char*);
 };

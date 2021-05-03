@@ -13,6 +13,7 @@ protected:
 		if (!check_string(t)) {
 			return is;
 		}
+		beautify_string(t);
 		resize_string(strlen(t) + 1);
 		strcpy(str, t);
 		return is;
@@ -24,4 +25,5 @@ public:
 	friend decimal_string operator+(const decimal_string& left, const decimal_string& right);
 	static bool check_string(const char*);
 	~decimal_string() { };
+	static void beautify_string(char*);
 };
