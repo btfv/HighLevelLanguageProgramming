@@ -2,10 +2,14 @@
 #include <typeinfo>
 #include <iostream>
 #include <conio.h>
+
 #include "id_string.h"
 #include "decimal_string.h"
 void init(string**&, int&);
 void test(string**&, const int&);
+void test_string(string*);
+void test_id(id_string*, const char*);
+void test_decimal(decimal_string*, const char*);
 
 int main()
 {
@@ -25,8 +29,15 @@ int main()
         switch (num) {
         case 1: init(arr, arr_size); break;
         case 2: test(arr, arr_size); break;
-        default: return 0;
+        default: break;
         }
+    }
+
+    std::cout << "Вывод всех строк: \n";
+    for (int i = 0; i < arr_size; i++) {
+        std::cout << i << ". " << typeid(*(arr[i])).name() << ". Значение: ";
+        std::cout << *(arr[i]);
+        std::cout << "\n";
     }
 
     delete[] arr;
@@ -35,7 +46,6 @@ int main()
 void init(string** &arr, int& arr_size) {
     int num = 0;
     while (num != 3) {
-        //std::cin.clear();
         system("CLS");
         std::cout << "1. Число элементов\n";
         std::cout << "2. Ввод элементов\n";
@@ -79,24 +89,70 @@ void init(string** &arr, int& arr_size) {
 }
 
 void test(string** &arr, const int &arr_size) {
-    int num = 0;
-    while (num != 3) {
+    int num = -1;
+    int el = -1;
+    char* example_dec = new char[100];
+    char* example_id = new char[100];
+    while (num != 4) {
+        if (el < arr_size && el >= 0) {
+            if (dynamic_cast<decimal_string*>(arr[el]) != nullptr) {
+                test_decimal(dynamic_cast<decimal_string*>(arr[el]), example_dec);
+            }
+            else if (dynamic_cast<id_string*>(arr[el]) != nullptr) {
+                test_id(dynamic_cast<id_string*>(arr[el]), example_id);
+            }
+            else {
+                test_string(arr[el]);
+            }
+        }
         system("CLS");
         std::cout << "Тестирование: \n";
 
-        std::cout << "1. Строка\n";
-        std::cout << "2. Строка-идентификатор\n";
-        std::cout << "3. Десятичная строка\n";
+        std::cout << "1. Введите номер элемента из массива\n";
+        std::cout << "2. Введите целочисленную строку-операнд для тестирования decimal_string\n";
+        std::cout << "3. Введите любую строку-операнд для тестирования id_string\n";
 
         std::cout << "4. Выход\n";
 
         std::cin >> num;
 
         switch (num) {
-        case 1: init(arr, arr_size); break;
-        case 2: test(arr, arr_size); break;
+        case 1: std::cin >> el; break;
+        case 2: std::cin >> example_dec; break;
+        case 3: std::cin >> example_id; break;
+        case 4: return;
         default: return;
         }
     }
+    delete[] example_dec;
+    delete[] example_id;
+    _getch();
+}
+
+void test_string(string* str) {
+    std::cout << "Элемент типа string\n";
+    std::cout << "Строка: " << *str << "\n";
+    std::cout << "Длина строки: " << str->get_length() << "\n";
+    _getch();
+}
+
+void test_decimal(decimal_string* str, const char* example) {
+    std::cout << "Элемент типа decimal_string\n";
+    std::cout << "Строка: " << *str << "\n";
+    std::cout << "Длина строки: " << str->get_length() << "\n";
+    std::cout << "Знак числа: " << (str->get_sign() ? "+" : "-") << "\n";
+    decimal_string x = *str + example;
+    std::cout << "Операция сложения: " << x << "\n";
+    _getch();
+}
+
+void test_id(id_string* str, const char* example) {
+    std::cout << "Элемент типа id_string\n";
+    std::cout << "Строка: " << *str << "\n";
+    std::cout << "Длина строки: " << str->get_length() << "\n";
+    id_string x = *str + example;
+    std::cout << "Операция сложения: " << x << "\n";
+    str->to_upper_case();
+    std::cout << "Строка после перевода в верхний регистр: " << *str << "\n";
     _getch();
 }

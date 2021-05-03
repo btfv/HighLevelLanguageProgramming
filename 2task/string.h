@@ -15,8 +15,8 @@ public:
 	int get_length();
 	virtual string& operator=(char*);
 	char operator[](int);
-	friend std::ostream& operator<< (std::ostream&, string);
-	friend std::istream& operator>> (std::istream&, string);
+	friend std::ostream& operator<< (std::ostream&, string&);
+	friend std::istream& operator>> (std::istream&, string&);
 	void resize_string(const int);
 	static void reverse_string(char*);
 };

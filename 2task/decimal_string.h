@@ -11,8 +11,9 @@ public:
 	decimal_string() {};
 	decimal_string(const char*);
 	bool get_sign();
-	friend decimal_string operator+(const decimal_string& left, const decimal_string& right);
+	decimal_string operator+(const char*);
+	friend decimal_string operator+(const decimal_string&, const decimal_string&);
 	static bool check_string(const char*);
-	~decimal_string() { };
+	~decimal_string();
 	static void beautify_string(char*);
 };

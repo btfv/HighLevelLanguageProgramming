@@ -257,3 +257,11 @@ std::istream& decimal_string::in(std::istream& is)
 	strcpy(str, t);
 	return is;
 }
+
+decimal_string decimal_string::operator+(const char* str) {
+	decimal_string right(str);
+	return *this + right;
+}
+decimal_string::~decimal_string() {
+	delete[] this->str;
+}

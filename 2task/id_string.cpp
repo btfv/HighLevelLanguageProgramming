@@ -36,11 +36,20 @@ id_string operator+(const id_string& left, const id_string& right) {
 	strcat(new_string, right.str);
 	return id_string(new_string);
 }
+id_string operator+(const id_string& left, const char* right) {
+	if (!id_string::check_string(right)) {
+		return left;
+	}
+	char* new_string = new char[strlen(left.str) + strlen(right) + 1];
+	strcpy(new_string, left.str);
+	strcat(new_string, right);
+	return id_string(new_string);
+}
 void id_string::to_upper_case() {
 	int i = 0;
 	while (this->str[i] != '\0') {
-		if (this->str[i] >= 65 && this->str[i] <= 90) {
-			this->str[i] -= 32;
+		if (this->str[i] >= 'a' && this->str[i] <= 'z') {
+			this->str[i] -= 'a' - 'A';
 		}
 		i++;
 	}

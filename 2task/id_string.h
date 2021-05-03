@@ -12,7 +12,8 @@ public:
 	id_string(const char*);
 	~id_string();
 	void to_upper_case();
-	static bool check_string(const char	*);
+	static bool check_string(const char*);
 	id_string& operator=(const char*);
 	friend id_string operator+(const id_string&, const id_string&);
+	friend id_string operator+(const id_string&, const char*);
 };

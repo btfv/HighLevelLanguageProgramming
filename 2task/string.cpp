@@ -40,10 +40,10 @@ char string::operator[](int index) {
 	return this->str[index];
 }
 
-std::ostream& operator<< (std::ostream& stream, string string) {
+std::ostream& operator<< (std::ostream& stream, string& string) {
 	return string.out(stream);
 }
-std::istream& operator>> (std::istream& stream, string string) {
+std::istream& operator>> (std::istream& stream, string& string) {
 	return string.in(stream);
 }
 
