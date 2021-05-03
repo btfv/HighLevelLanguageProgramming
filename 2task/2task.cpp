@@ -80,11 +80,23 @@ void init(string** &arr, int& arr_size) {
 
 void test(string** &arr, const int &arr_size) {
     int num = 0;
-    std::cout << "Вывод всех строк: \n";
-    for (int i = 0; i < arr_size; i++) {
-        std::cout << i << ". " << typeid(*(arr[i])).name() << ". Значение: ";
-        std::cout << *(arr[i]);
-        std::cout << "\n";
+    while (num != 3) {
+        system("CLS");
+        std::cout << "Тестирование: \n";
+
+        std::cout << "1. Строка\n";
+        std::cout << "2. Строка-идентификатор\n";
+        std::cout << "3. Десятичная строка\n";
+
+        std::cout << "4. Выход\n";
+
+        std::cin >> num;
+
+        switch (num) {
+        case 1: init(arr, arr_size); break;
+        case 2: test(arr, arr_size); break;
+        default: return;
+        }
     }
     _getch();
 }

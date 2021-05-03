@@ -244,3 +244,16 @@ void decimal_string::beautify_string(char* str) {
 		str[i] = str[i + shift];
 	}
 }
+
+std::istream& decimal_string::in(std::istream& is)
+{
+	char* t = new char[100];
+	is >> t;
+	if (!check_string(t)) {
+		return is;
+	}
+	beautify_string(t);
+	resize_string(strlen(t) + 1);
+	strcpy(str, t);
+	return is;
+}

@@ -48,3 +48,15 @@ void id_string::to_upper_case() {
 id_string::~id_string() {
 	delete[] this->str;
 }
+
+std::istream& id_string::in(std::istream& is)
+{
+	char* t = new char[100];
+	is >> t;
+	if (!check_string(t)) {
+		return is;
+	}
+	resize_string(strlen(t) + 1);
+	strcpy(str, t);
+	return is;
+}

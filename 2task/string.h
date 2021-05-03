@@ -5,14 +5,8 @@ class string {
 protected:
 	char* str;
 
-	virtual std::ostream& out(std::ostream& os)
-	{
-		return os << str;
-	}
-	virtual std::istream& in(std::istream& is)
-	{
-		return is >> str;
-	}
+	virtual std::ostream& out(std::ostream&);
+	virtual std::istream& in(std::istream&);
 public:
 	string();
 	virtual ~string();
@@ -23,9 +17,6 @@ public:
 	char operator[](int);
 	friend std::ostream& operator<< (std::ostream&, string);
 	friend std::istream& operator>> (std::istream&, string);
-	void resize_string(const int new_size) {
-		delete[] this->str;
-		this->str = new char[new_size];
-	}
+	void resize_string(const int);
 	static void reverse_string(char*);
 };

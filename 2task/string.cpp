@@ -63,3 +63,17 @@ void string::reverse_string(char* str) {
 		j--;
 	}
 }
+
+void string::resize_string(const int new_size) {
+	delete[] this->str;
+	this->str = new char[new_size];
+}
+
+std::ostream& string::out(std::ostream& os)
+{
+	return os << str;
+}
+std::istream& string::in(std::istream& is)
+{
+	return is >> str;
+}

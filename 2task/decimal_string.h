@@ -6,18 +6,7 @@
 
 class decimal_string: public string {
 protected:
-	virtual std::istream& in(std::istream& is)
-	{
-		char* t = new char[100];
-		is >> t;
-		if (!check_string(t)) {
-			return is;
-		}
-		beautify_string(t);
-		resize_string(strlen(t) + 1);
-		strcpy(str, t);
-		return is;
-	}
+	virtual std::istream& in(std::istream&);
 public:
 	decimal_string() {};
 	decimal_string(const char*);
