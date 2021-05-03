@@ -33,13 +33,6 @@ int main()
         }
     }
 
-    std::cout << "Вывод всех строк: \n";
-    for (int i = 0; i < arr_size; i++) {
-        std::cout << i << ". " << typeid(*(arr[i])).name() << ". Значение: ";
-        std::cout << *(arr[i]);
-        std::cout << "\n";
-    }
-
     delete[] arr;
     return 0;
 }
