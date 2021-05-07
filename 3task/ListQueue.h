@@ -34,7 +34,9 @@ public:
 		size++;
 	}
 	T pop() {
-		assert(size > 0);
+		if (isEmpty()) {
+			return NULL;
+		}
 		if (size == 1) {
 			T data = back->getData();
 			delete back;

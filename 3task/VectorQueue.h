@@ -50,7 +50,9 @@ public:
 		}
 	}
 	T pop() {
-		assert(!isEmpty());
+		if (isEmpty()) {
+			return NULL;
+		}
 		T data = arr[back];
 		back = (back + 1) % size;
 		return data;
