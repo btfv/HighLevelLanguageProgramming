@@ -340,6 +340,10 @@ ASALocalRun/
 healthchecksdb
 
 temp/
+files/
+binary_files/
 *.zip
 *.7z
 *.rar
+*.dat
+*.txt
