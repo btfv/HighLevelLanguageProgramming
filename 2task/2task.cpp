@@ -75,7 +75,7 @@ void init(string** &arr, int& arr_size) {
             }
             break;
         default :
-            return;
+            break;
         }
         
     }
@@ -97,6 +97,7 @@ void test(string** &arr, const int &arr_size) {
             else {
                 test_string(arr[el]);
             }
+            el = -1;
         }
         system("CLS");
         std::cout << "Тестирование: \n";
@@ -113,8 +114,8 @@ void test(string** &arr, const int &arr_size) {
         case 1: std::cin >> el; break;
         case 2: std::cin >> example_dec; break;
         case 3: std::cin >> example_id; break;
-        case 4: return;
-        default: return;
+        case 4: break;
+        default: break;
         }
     }
     delete[] example_dec;
