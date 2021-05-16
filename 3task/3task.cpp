@@ -18,11 +18,11 @@ void reverseFirstArrayHalf(T* arr, const unsigned int size) {
 
 template<typename T>
 void testVectorQueue() {
-    system("CLS");
     VectorQueue<T> queue;
     int num = -1;
     while (num != 0) {
-        std::cout << "Тестирование векторной очереди типа unsigned char\n";
+        system("CLS");
+        std::cout << "Тестирование векторной очереди типа " << typeid(T).name() << "\n";
         std::cout << "1. Добавление элемента\n";
         std::cout << "2. Удаление и вывод элемента\n";
         std::cout << "3. Проверка на пустоту\n";
@@ -37,7 +37,6 @@ void testVectorQueue() {
         default: break;
         }
         system("pause");
-        system("CLS");
     }
 }
 
@@ -45,7 +44,7 @@ template<typename T>
 void testArray() {
     system("CLS");
     unsigned int size;
-    std::cout << "Тестирование массива типа unsigned int\n";
+    std::cout << "Тестирование массива типа " << typeid(T).name() << "\n";
     std::cout << "Введите размер: ";
     std::cin >> size;
     T* arr = new T[size];
@@ -66,11 +65,11 @@ void testArray() {
 
 template <typename T>
 void testListQueue() {
-    system("CLS");
     ListQueue<T> queue;
     int num = -1;
     while (num != 0) {
-        std::cout << "Тестирование списковой очереди типа unsigned char\n";
+        system("CLS");
+        std::cout << "Тестирование списковой очереди типа " << typeid(T).name() << "\n";
         std::cout << "1. Добавление элемента\n";
         std::cout << "2. Удаление и вывод элемента\n";
         std::cout << "3. Проверка на пустоту\n";
@@ -85,7 +84,6 @@ void testListQueue() {
         default: break;
         }
         system("pause");
-        system("CLS");
     }
 }
 
