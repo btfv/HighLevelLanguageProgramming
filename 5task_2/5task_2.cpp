@@ -46,6 +46,7 @@ int main(int argc, char* argv[])
 
     int framesCounter = 0;
     bool hedgehogVector = false;
+    bool stopHedgehog = false;
     while (!done) {
         SDL_Event event;
         SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
@@ -57,20 +58,22 @@ int main(int argc, char* argv[])
                 apples[i].position.y++;
                 apples[i].rotation++;
                 if (checkCollision(apples[i].position, hedgehogPosition) || apples[i].position.y > 580) {
+                    stopHedgehog = true;
                     apples.erase(apples.begin() + i);
                 }
             }
 
-            if (hedgehogVector) {
-                hedgehogPosition.x++;
+            if (!stopHedgehog) {
+                if (hedgehogVector) {
+                    hedgehogPosition.x++;
+                }
+                else {
+                    hedgehogPosition.x--;
+                }
+                if (hedgehogPosition.x > 450 || hedgehogPosition.x < 50) {
+                    hedgehogVector = !hedgehogVector;
+                }
             }
-            else {
-                hedgehogPosition.x--;
-            }
-            if (hedgehogPosition.x > 450 || hedgehogPosition.x < 50) {
-                hedgehogVector = !hedgehogVector;
-            }
-
         }
         SDL_RendererFlip flip = hedgehogVector ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;
         SDL_RenderCopyEx(renderer, hedgehogTexture, 0, &hedgehogPosition, 0, NULL, flip);
