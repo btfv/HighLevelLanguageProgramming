@@ -100,4 +100,5 @@ int main(int argc, char* argv[])
     SDL_FreeSurface(hedgehog);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
+    return EXIT_SUCCESS;    
 }
