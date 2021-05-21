@@ -19,7 +19,7 @@ int main(int argc, char* argv[])
 
     SDL_Event windowEvent;
     SDL_Color blackColor = { 0, 0, 0, 255 };
-    TTF_Font* Roboto = TTF_OpenFont("Roboto-Regular.ttf", 32);
+    TTF_Font* Roboto = TTF_OpenFont("Roboto-Regular.ttf", 96);
     if (Roboto == NULL) {
         std::cout << "Font not found!";
         exit(EXIT_FAILURE);
@@ -49,7 +49,7 @@ int main(int argc, char* argv[])
         for (int shiftX = 0; shiftX < 300; shiftX += 20) {
             SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Roboto, std::to_string(shiftX / 20).c_str(), blackColor);
             SDL_Texture* message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
-            SDL_Rect dstrect = { defaultX + shiftX, defaultY - 10, 12, 12 };
+            SDL_Rect dstrect = { defaultX + shiftX, defaultY - 10, 14, 14 };
             SDL_RenderCopy(renderer, message, NULL, &dstrect);
 
             SDL_RenderDrawLine(renderer, defaultX + shiftX, defaultY + 5, defaultX + shiftX, defaultY - 5);
@@ -82,8 +82,10 @@ int main(int argc, char* argv[])
             SDL_RenderDrawLine(renderer, defaultX - 5, defaultY + shiftY, defaultX + 5, defaultY + shiftY);
         }
 
+        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
         for (double shiftX = -1; shiftX <= 9; shiftX += 0.05) {
-            SDL_RenderDrawPoint(renderer, defaultX + shiftX * 20, defaultY + 20 * func(shiftX));
+            SDL_Rect rect = { defaultX + shiftX * 20, defaultY - 20 * func(shiftX), 2, 2 };
+            SDL_RenderDrawRect(renderer, &rect);
         }
         SDL_RenderPresent(renderer);
 
