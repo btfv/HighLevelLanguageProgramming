@@ -2,7 +2,7 @@
 #include <SDL/SDL.h>
 #include "Level.h"
 
-const int WIDTH = 600, HEIGHT = 600;
+const int WIDTH = 640, HEIGHT = 640;
 
 int main(int argc, char* argv[])
 {

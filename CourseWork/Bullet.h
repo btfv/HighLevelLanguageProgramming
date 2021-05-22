@@ -5,7 +5,7 @@
 
 class Bullet : public GameObject {
 public:
-	Bullet(SDL_Renderer* renderer, const int x, const int y, const int w, const int h, const int rotation) : GameObject(renderer, x, y, w, h) {
+	Bullet(SDL_Renderer* renderer, const int x, const int y, const int w, const int h, const int rotation, LevelData* levelData) : GameObject(renderer, x, y, w, h, levelData) {
 		currentImgState = 0;
 		SDL_Surface* grid = IMG_Load("498_Tanks_sprites/gfx/bullet/bullet02.png");
 		SDL_DestroyTexture(texture);
@@ -33,6 +33,7 @@ public:
 			moveX = -1;
 			moveY = 0;
 			break;
+		case -90:
 		case 270:
 			moveX = 0;
 			moveY = -1;

@@ -16,20 +16,26 @@ public:
 			case SDL_QUIT:
 				break;
 			case SDL_KEYDOWN:
-				if (event.key.keysym.sym == SDLK_UP) {
+				switch (event.key.keysym.sym) {
+				case SDLK_UP:
+				case SDLK_w:
 					tankObject->moveUp();
-				}
-				if (event.key.keysym.sym == SDLK_RIGHT) {
+					break;
+				case SDLK_RIGHT:
+				case SDLK_d:
 					tankObject->moveRight();
-				}
-				if (event.key.keysym.sym == SDLK_LEFT) {
+					break;
+				case SDLK_LEFT:
+				case SDLK_a:
 					tankObject->moveLeft();
-				}
-				if (event.key.keysym.sym == SDLK_DOWN) {
+					break;
+				case SDLK_DOWN:
+				case SDLK_s:
 					tankObject->moveDown();
-				}
-				if (event.key.keysym.sym == SDLK_SPACE) {
+					break;
+				case SDLK_SPACE:
 					tankObject->strike();
+					break;
 				}
 				break;
 			}

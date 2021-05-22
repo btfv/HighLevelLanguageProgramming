@@ -1,4 +1,5 @@
 #pragma once
+#include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
 #include "GameObject.h"
 #include "Bullet.h"
@@ -9,7 +10,7 @@ protected:
 	int tankSpeed;
 	std::vector<Bullet*> bullets;
 public:
-	Tank(SDL_Renderer* renderer, const int x, const int y, const int w, const int h) : GameObject(renderer, x, y, w, h) {
+	Tank(SDL_Renderer* renderer, const int x, const int y, const int w, const int h, LevelData* levelData) : GameObject(renderer, x, y, w, h, levelData) {
 		currentImgState = 0;
 
 		SDL_Surface* grid = IMG_Load("498_Tanks_sprites/gfx/tanks/pla1.png");
@@ -50,7 +51,7 @@ public:
 		}
 	}
 	void strike() {
-		Bullet* newBullet = new Bullet(renderer, position.rect.x, position.rect.y, 32, 32, position.rotation);
+		Bullet* newBullet = new Bullet(renderer, position.rect.x, position.rect.y + 10, 32, 10, position.rotation, levelData);
 		bullets.push_back(newBullet);
 	}
 };
