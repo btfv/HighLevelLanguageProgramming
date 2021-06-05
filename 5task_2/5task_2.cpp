@@ -20,7 +20,7 @@ bool checkCollision(SDL_Rect& left, SDL_Rect& right) {
 
 int main(int argc, char* argv[])
 {
-    ShowWindow(GetConsoleWindow(), SW_HIDE);
+    //ShowWindow(GetConsoleWindow(), SW_HIDE);
     std::srand(std::time(nullptr));
     SDL_Init(SDL_INIT_EVERYTHING);
     SDL_Window* window = SDL_CreateWindow("5task_2", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WIDTH, HEIGHT, SDL_WINDOW_ALLOW_HIGHDPI);
@@ -31,6 +31,7 @@ int main(int argc, char* argv[])
     if (!hedgehog || !apple) {
         std::cout << "Картинка не найдена!";
         exit(EXIT_FAILURE);
+        return EXIT_FAILURE;
     }
     
     SDL_Texture* hedgehogTexture = SDL_CreateTextureFromSurface(renderer, hedgehog);
@@ -77,11 +78,11 @@ int main(int argc, char* argv[])
                 }
             }
         }
-        SDL_RendererFlip flip = hedgehogVector ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;
+        SDL_RendererFlip flip = !hedgehogVector ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL;
         SDL_RenderCopyEx(renderer, hedgehogTexture, 0, &hedgehogPosition, 0, NULL, flip);
-
+        
         for (int i = 0; i < apples.size(); i++) {
-            SDL_RenderCopyEx(renderer, appleTexture, 0, &apples[i].position, apples[i].rotation, NULL, SDL_FLIP_NONE);
+            SDL_RenderCopyEx(renderer, appleTexture, 0, &apples[i].position, apples[i].rotatio  n, NULL, SDL_FLIP_NONE);
         }
 
         SDL_RenderPresent(renderer);

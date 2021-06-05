@@ -1,45 +1,27 @@
 #pragma once
 #include "Tank.h"
+#include "IPlayer.h"
+class Tank;
 
-class Player {
+class Player : public IPlayer, public std::enable_shared_from_this<Player> {
 private:
-	Tank* tankObject;
+	std::shared_ptr<Tank> tankObject;
+	unsigned int score;
+	unsigned int tanksDestroyed;
+	unsigned int tanksDestroyedRequired = 4;
 public:
-	Player(Tank* tankObject) {
-		this->tankObject = tankObject;
-	}
+	Player(std::shared_ptr<Tank> tankObject);
 
-	void render() {
-		SDL_Event event;
-		while (SDL_PollEvent(&event)) {
-			switch (event.type) {
-			case SDL_QUIT:
-				break;
-			case SDL_KEYDOWN:
-				switch (event.key.keysym.sym) {
-				case SDLK_UP:
-				case SDLK_w:
-					tankObject->moveUp();
-					break;
-				case SDLK_RIGHT:
-				case SDLK_d:
-					tankObject->moveRight();
-					break;
-				case SDLK_LEFT:
-				case SDLK_a:
-					tankObject->moveLeft();
-					break;
-				case SDLK_DOWN:
-				case SDLK_s:
-					tankObject->moveDown();
-					break;
-				case SDLK_SPACE:
-					tankObject->strike();
-					break;
-				}
-				break;
-			}
-		}
-		tankObject->render();
-	}
+	void render();
+	void renderGui();
+	unsigned int getScore();
+	void increaseScore(unsigned int score);
+	void increaseTanksDestroyed(unsigned int count);
+	unsigned int getTanksDestroyed();
+	std::shared_ptr<Tank> getObject();
+
+	void destroyTankObject();
+	void changeTankObject(std::shared_ptr<Tank>);
+
+	~Player();
 };

@@ -16,9 +16,54 @@
     <Filter Include="Файлы заголовков\GameObjects">
       <UniqueIdentifier>{018efe73-9728-485c-be66-4400e9268045}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Файлы заголовков\GameObjects\Tanks">
+      <UniqueIdentifier>{a01e3131-fd3e-4005-a15a-36f155e2d671}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CourseWork.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Tank.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Bot.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Jaguar.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="AStar.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="TankV1.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="TankV2.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="TankV3.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="TankPLA1.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="TankPLA2.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,7 +74,7 @@
     <ClInclude Include="GameObject.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Texture.h">
+    <ClInclude Include="Explosion.h">
       <Filter>Файлы заголовков\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="Tank.h">
@@ -43,6 +88,42 @@
     </ClInclude>
     <ClInclude Include="Bullet.h">
       <Filter>Файлы заголовков\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Bot.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelData.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="IPlayer.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Jaguar.h">
+      <Filter>Файлы заголовков\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="AStar.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="TankV1.h">
+      <Filter>Файлы заголовков\GameObjects\Tanks</Filter>
+    </ClInclude>
+    <ClInclude Include="TankV2.h">
+      <Filter>Файлы заголовков\GameObjects\Tanks</Filter>
+    </ClInclude>
+    <ClInclude Include="TankV3.h">
+      <Filter>Файлы заголовков\GameObjects\Tanks</Filter>
+    </ClInclude>
+    <ClInclude Include="TankPLA1.h">
+      <Filter>Файлы заголовков\GameObjects\Tanks</Filter>
+    </ClInclude>
+    <ClInclude Include="TankPLA2.h">
+      <Filter>Файлы заголовков\GameObjects\Tanks</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

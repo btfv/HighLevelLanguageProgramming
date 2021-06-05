@@ -56,7 +56,7 @@ void consoleMenu() {
 }
 
 void writeResult(std::stack<int>& first_type, std::stack<int>& second_type) {
-    std::cout << "Состав из вагонов первого типа: ";
+    std::cout << "Состав из вагонов первого типа (с головы): ";
     if (first_type.empty()) {
         std::cout << "пуст\n";
     }
@@ -65,7 +65,7 @@ void writeResult(std::stack<int>& first_type, std::stack<int>& second_type) {
         first_type.pop();
     }
     std::cout << "\n";
-    std::cout << "Состав из вагонов второго типа: ";
+    std::cout << "Состав из вагонов второго типа (с головы): ";
     if (second_type.empty()) {
         std::cout << "пуст\n";
     }
