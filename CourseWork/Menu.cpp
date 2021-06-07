@@ -1,6 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "Menu.h"
 #include <iostream>
+#include <algorithm>
 #include <fstream>
 
 Menu::Menu(SDL_Renderer* renderer, const int width, const int height, std::string& ratingFilePath) {
@@ -251,6 +252,12 @@ void Menu::getRating(std::string& filePath) {
 		}
 	}
 	ifs.close();
+
+	std::sort(ratingBoard.begin(), ratingBoard.end(), [](Player::PlayerData& left, Player::PlayerData& right) {
+		return left.score > right.score;
+		});
+	if(ratingBoard.size() > ratingBoardSize)
+		ratingBoard.erase(ratingBoard.begin() + ratingBoardSize, ratingBoard.end());
 }
 
 std::string Menu::getName() {

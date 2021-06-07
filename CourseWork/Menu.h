@@ -29,6 +29,7 @@ private:
 	int currMenuPosition;
 	unsigned int countOfMenuPositions;
 	std::string playerName;
+	const int ratingBoardSize = 6;
 public:
 	Menu(SDL_Renderer* renderer, const int width, const int height, std::string& ratingFilePath);
 	Menu(SDL_Renderer* renderer, const int width, const int height, std::string& ratingFilePath, std::string playerName);
