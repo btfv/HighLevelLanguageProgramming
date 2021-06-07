@@ -6,9 +6,9 @@ TankV2::TankV2(SDL_Renderer* renderer, const int x, const int y, const int w, co
 	texture = SDL_CreateTextureFromSurface(renderer, grid);
 	SDL_FreeSurface(grid);
 
-	defaultTankSpeed = 1.8;
+	defaultTankSpeed = 1.6;
 	defaultBulletDamage = 100;
-	defaultBulletSpeed = 4;
+	defaultBulletSpeed = 3;
 	reloadDuration = 1000;
 	changeSpeedDuration = 10 * 1000;
 	tankCost = 300;

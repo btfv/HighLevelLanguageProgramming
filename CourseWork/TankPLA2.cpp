@@ -9,8 +9,9 @@ TankPLA2::TankPLA2(SDL_Renderer* renderer, const int x, const int y, const int w
 	defaultTankSpeed = 2;
 	defaultBulletDamage = 100;
 	defaultBulletSpeed = 8;
-	reloadDuration = 350;
+	reloadDuration = 450;
 	changeSpeedDuration = 10 * 1000;
 	tankCost = 300;
+	hp = 500;
 	this->tankSpeed = defaultTankSpeed;
 }

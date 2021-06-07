@@ -16,7 +16,7 @@ Tank::Tank(SDL_Renderer* renderer, const int x, const int y, const int w, const 
 	defaultBulletSpeed = 8;
 	reloadDuration = 300;
 	changeSpeedDuration = 10 * 1000;
-	spawnInviolabilityDuration = spawnInviolability ? 4 * 1000 : 0;
+	spawnInviolabilityDuration = spawnInviolability ? 2 * 1000 : 0;
 	tankCost = 100;
 	hp = 150;
 

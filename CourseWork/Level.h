@@ -23,8 +23,9 @@ class Tank;
 class TankV1;
 
 class Level {
+public:
+	enum class LevelState { Live = 1, GameEnded = 2, Exit = 3 };
 private:
-	bool isGameOver;
 	LevelData levelData;
 	SDL_Renderer* renderer;
 	SDL_Texture* blockTexture;
@@ -37,15 +38,20 @@ private:
 	std::unique_ptr<Timer> randomEventsTimer;
 	std::unique_ptr<Timer> endTimer;
 	std::unique_ptr<Timer> botSpawnTimer;
+	std::unique_ptr<Timer> returnToMenuTimer;
 	std::vector <std::pair<int, int>> spawnPoints;
 	TTF_Font* font;
 	std::unique_ptr<AStar::Generator> generator;
 	unsigned int botsOnLevel;
 	unsigned int botsSpawnTime;
+	unsigned int returnToMenuTime;
 	const bool showAStarPaths = 0;
 	int playerLivesLeft;
+	std::string filePath;
+	LevelState levelState;
+	std::string playerName;
 public:
-	Level(const int windowWidth, const int windowHeight, SDL_Renderer* renderer);
+	Level(const int windowWidth, const int windowHeight, SDL_Renderer* renderer, std::string& ratingFilePath, std::string playerName);
 	void setup();
 	void render();
 	bool checkForCollision(const double&, const double&, const double&, const double&, std::shared_ptr<GameObject>);
@@ -56,8 +62,7 @@ public:
 	void createGameObject(std::shared_ptr<GameObject> gameObject);
 	void clearObjects();
 	void createRandomEvents();
-	bool isToBeDestroyed();
-	void destroyLevel();
+	Level::LevelState getState();
 	bool checkIfGameIsOver();
 	std::vector <std::shared_ptr<Brick>> getBricks();
 	std::shared_ptr<Player> getPlayer() { return player; };

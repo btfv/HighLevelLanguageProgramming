@@ -8,7 +8,7 @@ TankV1::TankV1(SDL_Renderer* renderer, const int x, const int y, const int w, co
 
 	defaultTankSpeed = 1.5;
 	defaultBulletDamage = 50;
-	defaultBulletSpeed = 4;
+	defaultBulletSpeed = 3;
 	reloadDuration = 1000;
 	changeSpeedDuration = 10 * 1000;
 	tankCost = 100;

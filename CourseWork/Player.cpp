@@ -1,14 +1,17 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <memory>
+#include <fstream>
 #include "Player.h"
 #include "TankPLA1.h"
 #include "TankPLA2.h"
 class TankPLA1;
 class TankPLA2;
 
-Player::Player(std::shared_ptr<Tank> tankObject) {
+Player::Player(std::shared_ptr<Tank> tankObject, std::string& playerName) {
 	this->tankObject = tankObject;
 	score = 0;
 	tanksDestroyed = 0;
+	strcpy(playerData.name, playerName.c_str());
 }
 
 void Player::render() {
@@ -102,4 +105,46 @@ void Player::destroyTankObject() {
 }
 void Player::changeTankObject(std::shared_ptr<Tank> obj) {
 	tankObject = obj;
+}
+
+void Player::writeScoreToFile(std::string& path) {
+	playerData.score = score;
+
+	std::ifstream ifs(path, std::ifstream::binary);
+	std::ofstream ofs;
+	if (!ifs.is_open()) {
+		ofs.open(path, std::ofstream::out);
+		if (!ofs.is_open()) {
+			std::cout << "File is not open!";
+			return;
+		}
+		ofs.close();
+		ifs.open(path, std::ifstream::binary);
+	}
+
+	PlayerData temp;
+
+	while (!ifs.eof()) {
+		ifs.read(reinterpret_cast<char*>(&temp), sizeof(temp));
+		if (!ifs.eof()) {
+			if(!strcmp(temp.name, playerData.name))
+				break;
+		}
+	}
+	std::streampos pos = ifs.tellg();
+	ifs.close();
+
+	if (pos == -1) {
+		ofs.open(path, std::ofstream::binary | std::ofstream::app);
+		ofs.write(reinterpret_cast<char*>(&playerData), sizeof(playerData));
+		ofs.close();
+	}
+	else {
+		std::fstream fs;
+		fs.open(path, std::ios_base::binary | std::ios_base::out | std::ios_base::in);
+		//std::cout << pos << "pos\n";
+		fs.seekp(static_cast<unsigned long long>(pos) - sizeof(playerData), std::fstream::beg);
+		fs.write(reinterpret_cast<char*>(&playerData), sizeof(playerData));
+		fs.close();
+	}
 }

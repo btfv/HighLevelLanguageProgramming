@@ -13,14 +13,17 @@ class TankPLA1;
 class TankPLA2;
 class Brick;
 
-Level::Level(const int windowWidth, const int windowHeight, SDL_Renderer* renderer) {
+Level::Level(const int windowWidth, const int windowHeight, SDL_Renderer* renderer, std::string& ratingFilePath, std::string playerName) {
 	this->levelData.level = this;
 	this->levelData.windowHeight = windowHeight;
 	this->levelData.windowWidth = windowWidth;
 	this->renderer = renderer;
 	this->levelData.tileHeight = 32;
 	this->levelData.tileWidth = 32;
-	
+
+	this->returnToMenuTime = 2000;
+	this->returnToMenuTimer = nullptr;
+
 	this->generator = std::unique_ptr<AStar::Generator>(new AStar::Generator());
 	this->generator->setWorldSize({ levelData.windowWidth / levelData.tileWidth, levelData.windowHeight / levelData.tileHeight });
 	this->generator->setHeuristic(AStar::Heuristic::euclidean);
@@ -30,21 +33,23 @@ Level::Level(const int windowWidth, const int windowHeight, SDL_Renderer* render
 	this->levelData.players = x;
 
 	this->randomEventsTimer = nullptr;
-	this->font = TTF_OpenFont("Roboto.ttf", 72);
+	this->font = TTF_OpenFont("Pixeboy-z8XGD.ttf", 72);
 	this->endTimer = nullptr;
-	this->isGameOver = false;
 	this->playerLivesLeft = 2;
+
+	this->levelState = LevelState::Live;
 
 	blockRect = { 0, 0, levelData.tileWidth, levelData.tileHeight };
 	SDL_Surface* surface = SDL_LoadBMP("498_Tanks_sprites/gfx/block/world01/block_01.bmp");
 	blockTexture = SDL_CreateTextureFromSurface(renderer, surface);
 
-
+	this->filePath = ratingFilePath;
+	this->playerName = playerName;
 	setup();
 }
 void Level::setup() {
 	this->levelData.colliderTileMap = std::vector<std::vector<bool>>(this->levelData.windowHeight / this->levelData.tileHeight + 1, std::vector<bool>(this->levelData.windowWidth / this->levelData.tileWidth + 1, false));
-	this->botsOnLevel = 1;
+	this->botsOnLevel = 2;
 	this->botsSpawnTime = 3 * 1000;
 
 	SDL_Surface* backgroundSurface = SDL_LoadBMP("498_Tanks_sprites/gfx/ground/ground02.bmp");
@@ -70,7 +75,7 @@ void Level::setup() {
 		this->generator->addCollision({ 5, i });
 	}
 
-	player = std::shared_ptr<Player>(new Player(std::shared_ptr<Tank>(new TankPLA1(renderer, 32, 32, 32, 32, &levelData, true))));
+	player = std::shared_ptr<Player>(new Player(std::shared_ptr<Tank>(new TankPLA1(renderer, 32, 32, 32, 32, &levelData, true)), this->playerName));
 	this->levelData.players.push_back(player);
 	
 	for (int i = 0; i < 20; i++) {
@@ -80,11 +85,47 @@ void Level::setup() {
 
 }
 void Level::render() {
-	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-	SDL_RenderClear(renderer);
+	if (levelState == LevelState::Exit) {
+		return;
+	}
 
 	drawGrid();
 	background->render();
+
+	if (checkIfGameIsOver() && endTimer == nullptr) {
+		endTimer = std::unique_ptr<Timer>(new Timer(3000));
+	}
+	if (checkIfGameIsOver() && endTimer != nullptr && endTimer->isExpired()) {
+		levelState = LevelState::GameEnded;
+		SDL_Surface* surfaceMessage = TTF_RenderText_Solid(font, "Game over", { 255, 0, 0, 255 });
+		SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
+		SDL_Rect Message_rect = { levelData.windowWidth / 2 - 75,  levelData.windowHeight / 2 - 35, 150, 70 };
+		SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
+		SDL_FreeSurface(surfaceMessage);
+		SDL_DestroyTexture(Message);
+
+		char str[20] = "Your score: ";
+		char score[10];
+		_itoa_s(player->getScore(), score, 10);
+		strcat_s(str, score);
+
+		surfaceMessage = TTF_RenderText_Solid(font, str, { 0, 0, 0, 255 });
+		Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
+		Message_rect = { levelData.windowWidth / 2 - 75,  levelData.windowHeight / 2 + 35, 150, 70 };
+		SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
+		SDL_FreeSurface(surfaceMessage);
+		SDL_DestroyTexture(Message);
+
+		player->writeScoreToFile(filePath);
+		if(returnToMenuTimer == nullptr)
+			returnToMenuTimer = std::unique_ptr<Timer>(new Timer(returnToMenuTime));
+	}
+	if (returnToMenuTimer != nullptr && returnToMenuTimer->isExpired()) {
+		levelState = LevelState::Exit;
+	}
+	if (levelState == LevelState::GameEnded || levelState == LevelState::Exit) {
+		return;
+	}
 
 	for (int i = 0; i < levelData.windowHeight / levelData.tileHeight; i++) {
 		for (int j = 0; j < levelData.windowHeight / levelData.tileHeight; j++) {
@@ -140,32 +181,6 @@ void Level::render() {
 		}
 		botSpawnTimer.reset(new Timer(botsSpawnTime));
 	}
-	
-	if (checkIfGameIsOver() && endTimer == nullptr) {
-		endTimer = std::unique_ptr<Timer>(new Timer(3000));
-	}
-	if (checkIfGameIsOver() && endTimer != nullptr && endTimer->isExpired()) {
-		isGameOver = true;
-		SDL_Surface* surfaceMessage = TTF_RenderText_Solid(font, "Game over", { 255, 0, 0, 255 });
-		SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
-		SDL_Rect Message_rect = { levelData.windowWidth / 2 - 75,  levelData.windowHeight / 2 - 35, 150, 70 };
-		SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
-		SDL_FreeSurface(surfaceMessage);
-		SDL_DestroyTexture(Message);
-
-		char str[20] = "Your score: ";
-		char score[10];
-		_itoa_s(player->getScore(), score, 10);
-		strcat_s(str, score);
-
-		surfaceMessage = TTF_RenderText_Solid(font, str, { 0, 0, 0, 255 });
-		Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
-		Message_rect = { levelData.windowWidth / 2 - 75,  levelData.windowHeight / 2 + 35, 150, 70 };
-		SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
-		SDL_FreeSurface(surfaceMessage);
-		SDL_DestroyTexture(Message);
-		return;
-	}
 
 	if(player != nullptr)
 		player->render();
@@ -191,10 +206,9 @@ void Level::render() {
 	if (player != nullptr)
 		player->renderGui();
 	renderGui();
-	SDL_RenderPresent(renderer);
 }
-bool Level::isToBeDestroyed() {
-	return isGameOver;
+Level::LevelState Level::getState() {
+	return levelState;
 }
 void Level::createRandomEvents() {
 	int spawnX = 32 * (rand() % (levelData.windowHeight /levelData.tileHeight));
@@ -209,7 +223,6 @@ void Level::createRandomEvents() {
 
 Level::~Level() {
 	SDL_DestroyTexture(blockTexture);
-	SDL_DestroyRenderer(renderer);
 }
 void Level::createGameObject(std::shared_ptr<GameObject> gameObject) {
 	gameObjects.push_back(gameObject);
@@ -415,8 +428,4 @@ std::vector <std::shared_ptr<Brick>> Level::getBricks(){
 		}
 	}
 	return bricks;
-}
-
-void Level::destroyLevel() {
-	isGameOver = 1;
 }

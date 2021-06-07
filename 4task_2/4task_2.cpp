@@ -53,6 +53,8 @@ void consoleMenu() {
         }
     }
     writeResult(first_type, second_type);
+    std::cout << "\n";
+    system("pause");
 }
 
 void writeResult(std::stack<int>& first_type, std::stack<int>& second_type) {
