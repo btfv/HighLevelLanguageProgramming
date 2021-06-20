@@ -141,9 +141,6 @@ decimal_string operator+(const decimal_string& left, const decimal_string& right
 				curr += 10;
 				rem++;
 			}
-			if (curr == 0 && (i + 1 == max(strlen(left_str), strlen(right_str)))) {
-				break;
-			}
 			new_str[i] = curr + '0';
 			i++;
 		}
@@ -159,9 +156,6 @@ decimal_string operator+(const decimal_string& left, const decimal_string& right
 				if (curr < 0) {
 					curr += 10;
 					rem++;
-				}
-				if (curr == 0 && (i + 1 == max(strlen(left_str), strlen(right_str)))) {
-					break;
 				}
 				new_str[i] = curr + '0';
 				i++;
